@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 
 import 'http_helper.dart';
 
@@ -15,12 +14,16 @@ class GetUsersStream {
     });
   }
 
-  getUsersByID(int id) async {
-    HttpHelpers()
+  Future getUsersByID(String id) async {
+    //this function returns nothing
+    Map result;
+    await HttpHelpers() //this function returns res
         .getRequest('https://jsonplaceholder.typicode.com/posts/$id')
-        .then((res) async {
-      print(res);
+        .then((res) {
+      // print(res);
+      result = res;
       return res;
     });
+    return result;
   }
 }

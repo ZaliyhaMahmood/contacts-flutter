@@ -162,52 +162,58 @@ class _ContactsState extends State<Contacts> {
                             var userData = snapshot.data[index];
                             return Column(
                               children: <Widget>[
-                                FlatButton(
-                                  onPressed: () {
-                                    // getUsersStream.getUsersByID(userData['id']);
-                                    // var postData = getUsersStream
-                                    //     .getUsersByID(userData['id'])
-                                    //     .toString();
+                                // FlatButton(
+                                //   onPressed: () {
+                                //     // getUsersStream.getUsersByID(userData['id']);
+                                //     // var postData = getUsersStream
+                                //     //     .getUsersByID(userData['id'])
+                                //     //     .toString();
 
+                                //     );
+                                //     //print(userData);
+                                //   },
+                                //   child:
+                                ListTile(
+                                  // 1. list tile has an ontap
+                                  onTap: () {
                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => ContactPage(
-                                                  id: userData['id'],
-                                                )));
-                                    //print(userData);
-                                  },
-                                  child: ListTile(
-                                    // leading: CircleAvatar(
-                                    //     radius: 20,
-                                    //     backgroundImage: NetworkImage(
-                                    //         userData['Profile_image'])),
-                                    title: Text(
-                                      // _name(userData),
-                                      userData['id'].toString(),
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    subtitle: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(userData['title']),
-                                        Text(
-                                          userData['body'],
-                                          style: TextStyle(
-                                            color: kBlue,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ContactPage(
+                                          id: userData['id'].toString(),
                                         ),
-                                      ],
+                                      ),
+                                    );
+                                  },
+                                  // leading: CircleAvatar(
+                                  //     radius: 20,
+                                  //     backgroundImage: NetworkImage(
+                                  //         userData['Profile_image'])),
+                                  title: Text(
+                                    // _name(userData),
+                                    userData['id'].toString(),
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    trailing:
-                                        Text(userData['userId'].toString()),
                                   ),
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(userData['title']),
+                                      Text(
+                                        userData['body'],
+                                        style: TextStyle(
+                                          color: kBlue,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  trailing: Text(userData['userId'].toString()),
                                 ),
+
                                 SizedBox(
                                   height: 10,
                                   child: Divider(

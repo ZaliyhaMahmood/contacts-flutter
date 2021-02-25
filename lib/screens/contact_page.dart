@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:contacts_app/helpers/http_helper.dart';
 
 class ContactPage extends StatefulWidget {
-  final int id;
+  final String id;
 
   ContactPage({@required this.id});
 
@@ -15,21 +15,17 @@ class ContactPage extends StatefulWidget {
 
 class _ContactPageState extends State<ContactPage> {
   GetUsersStream getUsersStream = GetUsersStream();
-  String body;
+
   @override
   void initState() {
-    // TODO: implement initState
-    getUsersStream.getUsersByID(widget.id);
-    updateUI();
+    //init state is redundant
+    //hence future builder runs the funtion once it
+    //open the screen
+    // getUsersStream.getUsersByID(widget.id);
     super.initState();
 
     // updateUI(widget.locationWeather);
-  }
-
-  Future updateUI() async {
-    var data = await getUsersStream.getUsersByID(widget.id);
-    body = data.toString();
-    print(body);
+    //removed update UI FUNCTION!!
   }
 
   Widget build(BuildContext context) {
@@ -42,10 +38,13 @@ class _ContactPageState extends State<ContactPage> {
           children: [
             Text(widget.id.toString()),
             FutureBuilder<dynamic>(
-                future: updateUI(),
+                future: getUsersStream.getUsersByID(widget.id),
                 builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  }
                   if (snapshot.hasData) {
-                    return Text(snapshot.data[0]);
+                    return Text(snapshot.data['body']);
                   } else if (!snapshot.hasData) {
                     return Text('No data');
                   } else if (snapshot.hasError) {
